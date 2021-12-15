@@ -1,7 +1,7 @@
-// Import Model base UserGroup
+// Import Model UserGroupModel
 const UserGroup = require('../models/UserGroupModel');
 
-// List all available UserGroups
+// Baca semua data
 exports.listAllUserGroups = (req, res) => {
   UserGroup.find({}, (err, UserGroup) => {
     if (err) {
@@ -11,7 +11,7 @@ exports.listAllUserGroups = (req, res) => {
   });
 };
 
-// Create a new UserGroup with required validation
+// Tambah data dengan validasi
 exports.createNewUserGroup = (req, res) => {
   let newUserGroup = new UserGroup(req.body);
   newUserGroup.save((err, UserGroup) => {
@@ -22,7 +22,7 @@ exports.createNewUserGroup = (req, res) => {
   });
 };
 
-// Get or read a perticular UserGroup => By id
+// Baca data berdasarkan id
 exports.readUserGroup = (req, res) => {
   UserGroup.findById(req.params.usergroupid, (err, UserGroup) => {
     if (err) {
@@ -32,7 +32,7 @@ exports.readUserGroup = (req, res) => {
   });
 };
 
-// Update a new UserGroup => By id
+// Ubah data berdasarkan id
 exports.updateUserGroup = (req, res) => {
   UserGroup.findOneAndUpdate(
     { _id: req.params.usergroupid },
@@ -42,13 +42,12 @@ exports.updateUserGroup = (req, res) => {
       if (err) {
         res.status(500).send(err);
       }
-      //   res.status(200).json(UserGroup);
       res.status(200).json({ message: 'UserGroup successfully Updated' });
     }
   );
 };
 
-// Delete a perticular UserGroup => By id
+// Hapus data berdasarkan id
 exports.deleteUserGroup = (req, body) => {
   UserGroup.remove({ _id: req.params.usergroupid }, (err, UserGroup) => {
     if (err) {
