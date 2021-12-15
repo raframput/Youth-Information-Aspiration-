@@ -23,13 +23,20 @@ exports.listAllUsers = (req, res) => {
 
 // Tambah data dengan validasi
 exports.createNewUser = (req, res) => {
-  let newUser = new User(req.body);
-  newUser.save((err, User) => {
+  const newUser = new User({
+      name: req.body.name,
+      email: req.body.email,
+      password: bcrypt.hashSync(req.body.password, 8),
+      user_group: req.body.user_group,  
+  });
+
+  newUser.save((err, newUser) => {
     if (err) {
       res.status(500).send({ message: 'Please fill all the fields' });
     }
-    res.status(201).json(User);
+    res.status(201).json(newUser);
   });
+
 };
 
 // Baca data berdasarkan id

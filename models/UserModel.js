@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
-  username: {
+  name: {
     type: String,
     required: true,
   },
@@ -19,7 +19,15 @@ const UserSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "user_groups"
       }
-    ]
+  ],
+  created_at: {
+    type: Date,
+    default: Date.now,
+  },
+  updated_at: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 module.exports = mongoose.model('users', UserSchema);
