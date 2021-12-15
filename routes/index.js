@@ -6,6 +6,9 @@ const News = require('../controllers/News');
 const UserGroups = require('../controllers/UserGroups');
 const Users = require('../controllers/Users');
 
+const VerifyToken = require('../middleware/VerifyToken');
+
+
 const express = require("express")
 const bodyParser = require('body-parser');
 

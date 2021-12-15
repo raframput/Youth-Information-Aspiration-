@@ -1,5 +1,15 @@
 // Import Model UserModel
 const User = require('../models/UserModel');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+
+exports.Login = (req, res) => {
+
+};
+
+exports.Logout = (req, res) => {
+
+};
 
 // Baca semua data
 exports.listAllUsers = (req, res) => {
