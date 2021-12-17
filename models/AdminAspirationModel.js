@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const model = new Schema({
+const adminAspirationSchema = new Schema({
 
   aspiration_title: {
     type: String,
@@ -32,4 +32,4 @@ const model = new Schema({
  
 });
 
-module.exports = mongoose.model('todos', model);
+module.exports = mongoose.model('adminAspiration', adminAspirationSchema);
