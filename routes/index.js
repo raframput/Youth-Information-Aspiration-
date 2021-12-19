@@ -8,6 +8,7 @@ const Users = require('../controllers/Users');
 
 const VerifyToken = require('../middleware/VerifyToken');
 const adminAspiration = require('../controllers/AdminAspiration');
+const adminCategory = require('../controllers/AdminCategory');
 
 
 const express = require("express")
@@ -75,7 +76,17 @@ router
   .put(adminAspiration.update)
   .delete(adminAspiration.delete);
 
+  // Admin Category Endpoinst
+  router
+  .route('/admin-category')
+  .get(adminCategory.getAllAdminCategory)
+  .post(adminCategory.create);
 
+router
+  .route('/admin-category/admincategory:id')
+  .get(adminCategory.getOne)
+  .put(adminCategory.update)
+  .delete(adminCategory.delete);
   
 
 
