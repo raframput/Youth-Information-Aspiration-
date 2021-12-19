@@ -14,7 +14,7 @@ router.post(
 );
 router.get("/", AspirationController.getAllAspiration);
 router.get("/:id", AspirationController.getAspirationByID);
-router.put("/:id", AspirationController.updateAspiration);
+// router.put("/:id", AspirationController.updateAspiration);
 router.delete("/:id", AspirationController.deleteAspiration);
 
 module.exports = router;

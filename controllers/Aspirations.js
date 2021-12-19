@@ -15,10 +15,14 @@ class Aspirations {
     }
     try {
       const body = req.body;
+      const user_id = body.user_id;
+      const category_id = body.category_id;
       const aspiration_description = body.aspiration_description;
       const aspiration_title = body.aspiration_title;
       const aspiration_image = body.aspiration_image;
       const aspiration = new AspirationModel({
+        user_id: user_id,
+        category_id: category_id,
         aspiration_title: aspiration_title,
         aspiration_description: aspiration_description,
         aspiration_image: aspiration_image,
@@ -49,24 +53,24 @@ class Aspirations {
     }
   }
 
-  static async updateAspiration(req, res) {
-    try {
-      // Ambil ID dari parameter
-      const id = req.params.id;
-      const body = req.body;
-      const aspiration_description = body.aspiration_description;
-      const aspiration_title = body.aspiration_title;
-      const aspiration_image = body.aspiration_image;
-      await AspirationModel.updateOne({
-        aspiration_title: aspiration_title,
-        aspiration_description: aspiration_description,
-        aspiration_image: aspiration_image,
-      });
-      res.status(200).send({ message: "success" });
-    } catch (error) {
-      res.status(500).send({ err: error });
-    }
-  }
+  // static async updateAspiration(req, res) {
+  //   try {
+  //     // Ambil ID dari parameter
+  //     const id = req.params.id;
+  //     const body = req.body;
+  //     const aspiration_description = body.aspiration_description;
+  //     const aspiration_title = body.aspiration_title;
+  //     const aspiration_image = body.aspiration_image;
+  //     await AspirationModel.updateOne({
+  //       aspiration_title: aspiration_title,
+  //       aspiration_description: aspiration_description,
+  //       aspiration_image: aspiration_image,
+  //     });
+  //     res.status(200).send({ message: "success" });
+  //   } catch (error) {
+  //     res.status(500).send({ err: error });
+  //   }
+  // }
 
   static async deleteAspiration(req, res) {
     try {
