@@ -7,6 +7,8 @@ const UserGroups = require("../controllers/UserGroups");
 const Users = require("../controllers/Users");
 
 const VerifyToken = require("../middleware/VerifyToken");
+const adminAspiration = require("../controllers/AdminAspiration");
+const adminCategory = require("../controllers/AdminCategory");
 
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -61,7 +63,28 @@ router
   .put(Users.updateUser)
   .delete(Users.deleteUser);
 
-router.use("/aspiration", aspirationRoutes);
-router.use("/discussion", discussionRoutes);
+// Admin Aspiration Endpoinst
+router
+  .route("/admin-aspiration")
+  .get(adminAspiration.getAllAdminAspiration)
+  .post(adminAspiration.create);
+
+router
+  .route("/admin-aspiration/adminaspiration:id")
+  .get(adminAspiration.getOne)
+  .put(adminAspiration.update)
+  .delete(adminAspiration.delete);
+
+// Admin Category Endpoinst
+router
+  .route("/admin-category")
+  .get(adminCategory.getAllAdminCategory)
+  .post(adminCategory.create);
+
+router
+  .route("/admin-category/admincategory:id")
+  .get(adminCategory.getOne)
+  .put(adminCategory.update)
+  .delete(adminCategory.delete);
 
 module.exports = router;
