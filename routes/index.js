@@ -7,6 +7,7 @@ const UserGroups = require('../controllers/UserGroups');
 const Users = require('../controllers/Users');
 
 const VerifyToken = require('../middleware/VerifyToken');
+const adminAspiration = require('../controllers/AdminAspiration');
 
 
 const express = require("express")
@@ -61,6 +62,21 @@ router
   .get(Users.readUser)
   .put(Users.updateUser)
   .delete(Users.deleteUser);
+
+  // Admin Aspiration Endpoinst
+router
+  .route('/admin-aspiration')
+  .get(adminAspiration.getAllAdminAspiration)
+  .post(adminAspiration.create);
+
+router
+  .route('/admin-aspiration/adminaspiration:id')
+  .get(adminAspiration.getOne)
+  .put(adminAspiration.update)
+  .delete(adminAspiration.delete);
+
+
+  
 
 
 module.exports = router

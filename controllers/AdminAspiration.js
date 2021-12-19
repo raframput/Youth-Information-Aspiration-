@@ -1,7 +1,7 @@
 const adminAspiration = require('../models/AdminAspirationModel');
 
 // PROSES CREATE
-exports.createAdminAspiration = async (req, res) => {
+exports.create = async (req, res) => {
     // ambil data dari nama field 
     const { aspiration_title, aspiration_image, aspiration_description } = req.body;
   
@@ -12,7 +12,7 @@ exports.createAdminAspiration = async (req, res) => {
       }
   
       // buat dokumen baru
-      const admin = await adminAspiration.createAdminAspiration({ aspiration_title, aspiration_image, aspiration_description });
+      const admin = await adminAspiration.create({ aspiration_title, aspiration_image, aspiration_description });
   
       // kirim respon dengan payload nya dokumen yang baru dibuat
       return res.status(201).json(admin);

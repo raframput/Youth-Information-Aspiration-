@@ -8,7 +8,7 @@ const adminAspirationSchema = new Schema({
     required: true,
   },
   aspiration_image: {
-    type: BLOP,
+    type: String,
     required: true,
   },
   aspiration_description: {
