@@ -20,6 +20,11 @@ const UserSchema = new Schema({
         ref: "user_groups"
       }
   ],
+  refresh_token: {
+    type: String,
+    text : true,
+    required: false,
+  },
   created_at: {
     type: Date,
     default: Date.now,

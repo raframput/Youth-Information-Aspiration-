@@ -5,6 +5,7 @@ const Discussions = require('../controllers/Discussions');
 const News = require('../controllers/News');
 const UserGroups = require('../controllers/UserGroups');
 const Users = require('../controllers/Users');
+const RefreshToken = require('../controllers/RefreshToken');
 
 const VerifyToken = require('../middleware/VerifyToken');
 
@@ -25,6 +26,9 @@ router.get("/ping", (req, res) => {
 
     res.status(200).send(ready)
 })
+
+// API token Endpoints
+router.get('/token', RefreshToken.refreshToken);
 
 // API Category Endpoints
 router
@@ -51,6 +55,9 @@ router
   .delete(UserGroups.deleteUserGroup);
 
 // API User Endpoints
+router.post('/login', Users.Login)
+router.delete('/logout', Users.Logout)
+
 router
   .route('/users')
   .get(Users.listAllUsers)
