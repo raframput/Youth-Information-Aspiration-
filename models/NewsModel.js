@@ -1,42 +1,47 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const NewsSchema = new Schema({
   user_id: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "users"
-      }
+    {
+      type: Schema.Types.ObjectId,
+      ref: "users",
+    },
   ],
   category_id: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "categories"
-      }
+    {
+      type: Schema.Types.ObjectId,
+      ref: "categories",
+    },
   ],
   news_title: {
     type: String,
-    required: true,
+    required: false,
   },
   news_author: {
     type: String,
-    required: true,
+    required: false,
   },
   news_thumbnail: {
     type: String,
-    required: true,
+    required: false,
   },
   news_image: {
-    type: String,
-    required: true,
+    type: Array,
+    default: [],
+    required: false,
   },
   news_description: {
     type: String,
-    required: true,
+    required: false,
   },
   news_source: {
     type: String,
-    required: true,
+    required: false,
+  },
+  status_news: {
+    type: Number,
+    default: 0,
   },
   created_at: {
     type: Date,
@@ -48,4 +53,4 @@ const NewsSchema = new Schema({
   },
 });
 
-module.exports = mongoose.model('news', NewsSchema);
+module.exports = mongoose.model("news", NewsSchema);
