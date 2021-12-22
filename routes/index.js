@@ -1,17 +1,7 @@
-const Aspirations = require('../controllers/Aspirations');
-const Categories = require('../controllers/Categories');
-const Comments = require('../controllers/Comments');
-const Discussions = require('../controllers/Discussions');
-const News = require('../controllers/News');
-const UserGroups = require('../controllers/UserGroups');
-const Users = require('../controllers/Users');
-const RefreshToken = require('../controllers/RefreshToken');
-
-const VerifyToken = require('../middleware/VerifyToken');
-
-
 const express = require("express")
 const bodyParser = require('body-parser');
+const userRoutes = require("./users")
+const user_groupRoutes = require("./user_groups")
 
 // creates a new router instance.
 const router = express.Router()
@@ -27,47 +17,7 @@ router.get("/ping", (req, res) => {
     res.status(200).send(ready)
 })
 
-// API token Endpoints
-router.get('/token', RefreshToken.refreshToken);
-
-// API Category Endpoints
-router
-  .route('/categories')
-  .get(Categories.listAllCategorys)
-  .post(Categories.createNewCategory);
-
-router
-  .route('/categories/:categoryid')
-  .get(Categories.readCategory)
-  .put(Categories.updateCategory)
-  .delete(Categories.deleteCategory);
-
-// API User Group Endpoints
-router
-  .route('/user-groups')
-  .get(UserGroups.listAllUserGroups)
-  .post(UserGroups.createNewUserGroup);
-
-router
-  .route('/user-groups/:usergroupid')
-  .get(UserGroups.readUserGroup)
-  .put(UserGroups.updateUserGroup)
-  .delete(UserGroups.deleteUserGroup);
-
-// API User Endpoints
-router.post('/login', Users.Login)
-router.delete('/logout', Users.Logout)
-
-router
-  .route('/users')
-  .get(Users.listAllUsers)
-  .post(Users.createNewUser);
-
-router
-  .route('/users/:userid')
-  .get(Users.readUser)
-  .put(Users.updateUser)
-  .delete(Users.deleteUser);
-
+router.use("/users", userRoutes)
+router.use("/user-groups", user_groupRoutes)
 
 module.exports = router

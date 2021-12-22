@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const uniqueValidator = require("mongoose-unique-validator")
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
@@ -20,11 +21,6 @@ const UserSchema = new Schema({
         ref: "user_groups"
       }
   ],
-  refresh_token: {
-    type: String,
-    text : true,
-    required: false,
-  },
   created_at: {
     type: Date,
     default: Date.now,
@@ -34,5 +30,7 @@ const UserSchema = new Schema({
     default: Date.now,
   },
 });
+
+UserSchema.plugin(uniqueValidator, {message: "Email already in use."})
 
 module.exports = mongoose.model('users', UserSchema);
