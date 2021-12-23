@@ -1,8 +1,3 @@
-const express = require("express")
-const bodyParser = require('body-parser');
-const userRoutes = require("./users")
-const user_groupRoutes = require("./user_groups")
-
 // creates a new router instance.
 const router = express.Router();
 
@@ -21,12 +16,5 @@ router.get("/ping", (req, res) => {
 
   res.status(200).send(ready);
 });
-
-// News + Comment
-router.use('/news',NewsRoute);
-router.use('/comment',CommentRoute);
-
-router.use("/users", userRoutes)
-router.use("/user-groups", user_groupRoutes)
 
 module.exports = router;
