@@ -5,13 +5,13 @@ const CommentSchema = new Schema({
   user_id: [
       {
         type: Schema.Types.ObjectId,
-        ref: "Users"
+        ref: "users"
       }
   ],
   news_id: [
       {
         type: Schema.Types.ObjectId,
-        ref: "News"
+        ref: "news"
       }
   ],
   comment_description: {

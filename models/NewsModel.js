@@ -14,6 +14,12 @@ const NewsSchema = new Schema({
       ref: "categories",
     },
   ],
+  comments: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "comments",
+    },
+  ],
   news_title: {
     type: String,
     required: false,

@@ -63,7 +63,22 @@ class Comment {
     }
   }
   //   TODO Udpate Comment
-  static async updateComment() {}
+  static async updateComment(req,res) {
+    try {
+      const id = req.params.id;
+      const body = req.body;
+
+      await CommentModel.findOneAndUpdate(
+        { _id: id },
+        body,
+        { new: true },
+      );
+      res.status(200).json({ message: "Comment successfully Updated" });
+
+    } catch (error) {
+      res.status(500).send({ err: error.message });
+    }
+  }
 
 
   //   Delete Comment

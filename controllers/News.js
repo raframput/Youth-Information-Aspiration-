@@ -5,7 +5,7 @@ class News {
   // Get All News Data
   static async getlistAllNews(req, res) {
     try {
-      const NewsList = await NewsModel.find();
+      const NewsList = await NewsModel.find().populate("comments");
       res.status(200).send(NewsList);
     } catch (err) {
       res.status(500).send({
@@ -51,6 +51,7 @@ class News {
       const newsThumbnail = body.news_thumbnail;
       const newsImage = body.news_image;
       const newDesc = body.news_description;
+      const newsComment = body.comments;
       const newsSource = body.news_source;
 
       const News = new NewsModel({
@@ -60,6 +61,7 @@ class News {
         news_author: newsAuthor,
         news_thumbnail: newsThumbnail,
         news_image: newsImage,
+        comments: newsComment,
         news_description: newDesc,
         news_source: newsSource,
       });
@@ -79,36 +81,13 @@ class News {
       const id = req.params.id;
       const body = req.body;
 
-      const newsTitle = body.news_title;
-      const newsAuthor = body.news_author;
-      const newsThumbnail = body.news_thumbnail;
-      const newsImage = body.news_image;
-      const newDesc = body.news_description;
-      const newsSource = body.news_source;
+      await NewsModel.findOneAndUpdate(
+        { _id: id },
+        body,
+        { new: true },
+      );
+      res.status(200).json({ message: "News successfully Updated" });
 
-      const News = new NewsModel({
-        news_title: newsTitle,
-        news_author: newsAuthor,
-        news_thumbnail: newsThumbnail,
-        news_image: newsImage,
-        news_description: newDesc,
-        news_source: newsSource,
-      });
-
-      // await NewsModel.findOneAndUpdate(
-        
-      //   {
-      //     _id: id,
-      //   },
-      //   News,{new:true},
-      //   (err, News) => {
-      //     if (err) {
-      //       res.status(500).send(err);
-      //     }
-      //     res.status(200).json({ message: "Category successfully Updated" });
-      //   }
-      // );
-      // res.status(200).send({ message: "success" });
     } catch (error) {
       res.status(500).send({ err: error.message });
     }
