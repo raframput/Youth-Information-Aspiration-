@@ -20,7 +20,7 @@ const AspirationSchema = new Schema({
   },
   aspiration_image: {
     type: String,
-    required: true,
+    required: false,
   },
   aspiration_description: {
     type: String,

@@ -3,38 +3,6 @@ const { validationResult } = require("express-validator");
 const UserModel = require("../models/UserModel");
 
 class Aspirations {
-  // static async createNewAspiration(req, res) {
-  //   const errors = validationResult(req);
-
-  //   if (!errors.isEmpty()) {
-  //     console.log("err: ", errors);
-  //     res.status(400).json({
-  //       message: "Request error",
-  //       data: null,
-  //     });
-  //     return;
-  //   }
-  //   try {
-  //     const body = req.body;
-  //     const user_id = body.user_id;
-  //     const category_id = body.category_id;
-  //     const aspiration_description = body.aspiration_description;
-  //     const aspiration_title = body.aspiration_title;
-  //     const aspiration_image = body.aspiration_image;
-  //     const aspiration = new AspirationModel({
-  //       user_id: user_id,
-  //       category_id: category_id,
-  //       aspiration_title: aspiration_title,
-  //       aspiration_description: aspiration_description,
-  //       aspiration_image: aspiration_image,
-  //     });
-  //     const saved = await aspiration.save();
-  //     res.status(201).send(saved);
-  //   } catch (error) {
-  //     res.status(500).send({ err: error });
-  //   }
-  // }
-
   static async createNewAspiration(req, res) {
     try {
       AspirationModel.create(req.body).then(function (dbAspiration) {
@@ -65,7 +33,10 @@ class Aspirations {
 
   static async getAllAspiration(req, res) {
     try {
-      const aspirationList = await AspirationModel.find();
+      const aspirationList = await AspirationModel.find().populate([
+        "user_id",
+        "category_id",
+      ]);
       res.status(200).send(aspirationList);
     } catch (error) {
       res.status(500).send({ err: error });
