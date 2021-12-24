@@ -9,7 +9,7 @@ const router = express.Router()
 // API User Group Endpoints
 router
   .route('/')
-  .get(authorize, UserGroups.listAllUserGroups)
+  .get(UserGroups.listAllUserGroups)
   .post(authorize, UserGroups.createNewUserGroup);
 
 router
