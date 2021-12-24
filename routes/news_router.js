@@ -6,7 +6,7 @@ const NewsController = require("../controllers/News");
 
 const router = express.Router();
 
-router.get("/", authorize, NewsController.getlistAllNews);
+router.get("/",  NewsController.getlistAllNews);
 router.post("/", authorize, NewsController.createNews);
 router.get("/:id", authorize, NewsController.getNewsById);
 router.get("/:category_name", authorize, NewsController.getNewsByCategory);

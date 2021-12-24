@@ -13,7 +13,7 @@ router.post(
   [body("aspiration_description").isLength({ min: 5 })],
   authorize, AspirationController.createNewAspiration
 );
-router.get("/", authorize, AspirationController.getAllAspiration);
+router.get("/", AspirationController.getAllAspiration);
 router.post("/:id", authorize, AspirationController.createNewAspirationByUserId);
 router.get("/:id", authorize, AspirationController.getAspirationByUserID);
 // router.put("/:id", authorize, AspirationController.updateAspiration);
