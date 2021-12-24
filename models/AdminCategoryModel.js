@@ -8,7 +8,6 @@ const adminCategorySchema = new Schema({
         required: true,
       },
 
-      
 // timestamp
 
   created_at: {
