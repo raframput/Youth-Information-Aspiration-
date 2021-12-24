@@ -58,7 +58,11 @@ class News {
       const id = req.params.id;
       const NewsList = await NewsModel.findOne({
         _id: id,
-      });
+      }).populate([
+        "user_id",
+        "category_id",
+        "comments",
+      ]);
       res.status(200).send({
         meta: {
           status: "Success",

@@ -118,7 +118,10 @@ class Aspirations {
   static async getAspirationByUserID(req, res) {
     try {
       AspirationModel.findOne({ _id: req.params.id })
-        .populate("user_id")
+        .populate([
+          "user_id",
+          "category_id",
+        ])
         .then(function (dbAspiration) {
           res.json({
         meta: {

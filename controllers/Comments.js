@@ -88,7 +88,10 @@ class Comment {
       const news_id = req.params.news_id;
       const CommentList = await CommentModel.findOne({
         news_id: news_id,
-      });
+      }).populate([
+        "user_id",
+        "news_id",
+        ]);
       res.status(200).send({
         meta: {
           status: "Success",

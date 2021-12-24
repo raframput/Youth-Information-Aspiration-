@@ -82,7 +82,10 @@ class Discussions {
   static async getDiscussionByID(req, res) {
     try {
       const id = req.params.id;
-      const discussionList = await DiscussionModel.findOne({ _id: id });
+      const discussionList = await DiscussionModel.findOne({ _id: id }).populate([
+        "user_id",
+        "aspiration_id",
+      ]);
       res.status(200).send({
         meta: {
           status: "Success",
