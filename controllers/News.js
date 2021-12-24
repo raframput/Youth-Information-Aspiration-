@@ -1,15 +1,53 @@
 const NewsModel = require("../models/NewsModel");
 const { validationResult } = require("express-validator");
 
+let date_ob = new Date();
+
+// current date
+// adjust 0 before single digit date
+let date = ("0" + date_ob.getDate()).slice(-2);
+// current month
+let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+// current year
+let year = date_ob.getFullYear();
+// current hours
+let hours = date_ob.getHours();
+// current minutes
+let minutes = date_ob.getMinutes();
+// current seconds
+let seconds = date_ob.getSeconds();
+
+let Timestamp = year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds;
+
 class News {
   // Get All News Data
   static async getlistAllNews(req, res) {
     try {
-      const NewsList = await NewsModel.find().populate("comments");
-      res.status(200).send(NewsList);
+      const NewsList = await NewsModel.find().populate([
+        "user_id",
+        "category_id",
+        "comments",
+      ]);
+      res.status(200).send({
+        meta: {
+          status: "Success",
+          message: "Get All News",
+          time: Timestamp,
+        },
+          data: {
+            News : NewsList
+          }
+      });
     } catch (err) {
       res.status(500).send({
-        message: err,
+        meta: {
+          status: "Error",
+          message: "Get All News",
+          time: Timestamp,
+        },
+          data: {
+            News : err
+          }
       });
     }
   }
@@ -20,10 +58,32 @@ class News {
       const id = req.params.id;
       const NewsList = await NewsModel.findOne({
         _id: id,
+      }).populate([
+        "user_id",
+        "category_id",
+        "comments",
+      ]);
+      res.status(200).send({
+        meta: {
+          status: "Success",
+          message: "Get News by Id",
+          time: Timestamp,
+        },
+          data: {
+            News : NewsList
+          }
       });
-      res.status(200).send(NewsList);
     } catch (error) {
-      res.status(500).send({ err: error });
+      res.status(500).send({
+        meta: {
+          status: "Error",
+          message: "Get News by Id",
+          time: Timestamp,
+        },
+          data: {
+            News : error
+          }
+      });
     }
   }
 
@@ -34,9 +94,27 @@ class News {
       const NewsList = await NewsModel.find({
         category_name: categoryName,
       });
-      res.status(200).send(NewsList);
+      res.status(200).send({
+        meta: {
+          status: "Success",
+          message: "Get News by Category",
+          time: Timestamp,
+        },
+          data: {
+            News : NewsList
+          }
+      });
     } catch (error) {
-      res.status(500).send({ err: error });
+      res.status(500).send({
+        meta: {
+          status: "Error",
+          message: "Get News by Category",
+          time: Timestamp,
+        },
+          data: {
+            News : error
+          }
+      });
     }
   }
 
@@ -67,11 +145,26 @@ class News {
       });
       const saved = await News.save();
       res.status(201).send({
-        message: "Succes Created the Data",
-        data: saved,
+        meta: {
+          status: "Success",
+          message: "Post News",
+          time: Timestamp,
+        },
+          data: {
+            News : saved
+          }
       });
     } catch (error) {
-      res.status(500).send({ err: error.message, data: "Ini Error Bro" });
+      res.status(500).send({
+        meta: {
+          status: "Error",
+          message: "Post News",
+          time: Timestamp,
+        },
+          data: {
+            News : error
+          }
+      });
     }
   }
   // TODO : Update News Masih Belum Bisa
@@ -81,15 +174,33 @@ class News {
       const id = req.params.id;
       const body = req.body;
 
-      await NewsModel.findOneAndUpdate(
+      const updated = await NewsModel.findOneAndUpdate(
         { _id: id },
         body,
         { new: true },
       );
-      res.status(200).json({ message: "News successfully Updated" });
+      res.status(200).json({
+        meta: {
+          status: "Success",
+          message: "Update News",
+          time: Timestamp,
+        },
+          data: {
+            News : updated
+          }
+      });
 
     } catch (error) {
-      res.status(500).send({ err: error.message });
+      res.status(500).send({
+        meta: {
+          status: "Success",
+          message: "Update News",
+          time: Timestamp,
+        },
+          data: {
+            News : error
+          }
+      });
     }
   }
 
@@ -100,10 +211,26 @@ class News {
       const id = req.params.id;
       await NewsModel.deleteOne({ _id: id });
       res.status(200).send({
-        message: `${id} Has Been Deleted`,
+        meta: {
+          status: "Success",
+          message: "Delete News",
+          time: Timestamp,
+        },
+          data: {
+            News : `${id} has been deleted `
+          }
       });
     } catch (error) {
-      res.status(500).send({ err: error });
+      res.status(500).send({
+        meta: {
+          status: "Error",
+          message: "Delete News",
+          time: Timestamp,
+        },
+          data: {
+            News : error
+          }
+      });
     }
   }
 }

@@ -1,6 +1,7 @@
 const express = require("express");
 const { body } = require("express-validator");
 
+const authorize = require("../middleware/auth");
 const AspirationController = require("../controllers/Aspirations");
 // const artiscontrollerinstance = new ArtisController();
 
@@ -10,11 +11,12 @@ const router = express.Router();
 router.post(
   "/",
   [body("aspiration_description").isLength({ min: 5 })],
-  AspirationController.createNewAspiration
+  authorize, AspirationController.createNewAspiration
 );
-router.get("/", AspirationController.getAllAspiration);
-router.get("/:id", AspirationController.getAspirationByID);
-router.put("/:id", AspirationController.updateAspiration);
-router.delete("/:id", AspirationController.deleteAspiration);
+router.get("/", authorize, AspirationController.getAllAspiration);
+router.post("/:id", authorize, AspirationController.createNewAspirationByUserId);
+router.get("/:id", authorize, AspirationController.getAspirationByUserID);
+// router.put("/:id", authorize, AspirationController.updateAspiration);
+router.delete("/:id", authorize, AspirationController.deleteAspiration);
 
 module.exports = router;

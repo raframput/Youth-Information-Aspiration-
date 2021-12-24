@@ -1,8 +1,8 @@
 const express = require("express");
 const { body } = require("express-validator");
 
+const authorize = require("../middleware/auth");
 const DiscussionController = require("../controllers/Discussions");
-// const artiscontrollerinstance = new ArtisController();
 
 // creates a new router instance.
 const router = express.Router();
@@ -10,11 +10,11 @@ const router = express.Router();
 router.post(
   "/",
   [body("discussion_description").isLength({ min: 5 })],
-  DiscussionController.createNewDiscussion
+  authorize, DiscussionController.createNewDiscussion
 );
-router.get("/", DiscussionController.getAllDiscussion);
-router.get("/:id", DiscussionController.getDiscussionByID);
-router.put("/:id", DiscussionController.updateDiscussion);
-router.delete("/:id", DiscussionController.deleteDiscussion);
+router.get("/", authorize, DiscussionController.getAllDiscussion);
+router.get("/:id", authorize, DiscussionController.getDiscussionByID);
+router.put("/:id", authorize, DiscussionController.updateDiscussion);
+router.delete("/:id", authorize, DiscussionController.deleteDiscussion);
 
 module.exports = router;

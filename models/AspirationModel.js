@@ -1,18 +1,18 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const AspirationSchema = new Schema({
   user_id: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "users"
-      }
+    {
+      type: Schema.Types.ObjectId,
+      ref: "users",
+    },
   ],
   category_id: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "categories"
-      }
+    {
+      type: Schema.Types.ObjectId,
+      ref: "categories",
+    },
   ],
   aspiration_title: {
     type: String,
@@ -20,7 +20,7 @@ const AspirationSchema = new Schema({
   },
   aspiration_image: {
     type: String,
-    required: true,
+    required: false,
   },
   aspiration_description: {
     type: String,
@@ -36,4 +36,4 @@ const AspirationSchema = new Schema({
   },
 });
 
-module.exports = mongoose.model('aspirations', AspirationSchema);
+module.exports = mongoose.model("aspirations", AspirationSchema);
