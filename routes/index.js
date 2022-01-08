@@ -11,6 +11,8 @@ const router = express.Router();
 const userRoutes = require("./UsersRoute");
 const usergroupRoutes = require("./UserGroupsRoute");
 const categoriesRoutes = require("./CategoriesRoute");
+const aspirationRoutes = require("./AspirationsRoute");
+const discussionRoutes = require("./DiscussionsRoute");
 
 router.use(bodyParser.urlencoded({ extended: true }));
 router.use(bodyParser.json());
@@ -61,5 +63,8 @@ router.use("/users", userRoutes)
 router.use("/user-groups", usergroupRoutes)
 
 router.use("/categories", categoriesRoutes)
+
+router.use("/aspirations", aspirationRoutes)
+router.use("/discussions", discussionRoutes)
 
 module.exports = router;
