@@ -9,7 +9,7 @@ const router = express.Router()
 // API User Group Endpoints
 router
   .route('/')
-  .get(authorize, CategoriesController.listAllCategory)
+  .get(CategoriesController.listAllCategory)
   .post(authorize, CategoriesController.createNewCategory);
 
 router
