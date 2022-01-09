@@ -1,5 +1,7 @@
 'use strict';
 const express = require("express");
+const favicon = require('express-favicon');
+
 const bodyParser = require('body-parser')
 const http = require("http");
 const path = require("path");
@@ -24,6 +26,8 @@ router.use(bodyParser.json());
 router.get("/image.png", (req, res) => {
   res.sendFile(path.join(__dirname, "../assets/logo/assassinscode.png"));
 });
+
+router.use(favicon(__dirname + '../assets/logo/assassinscode.png'));
 
 router.get("/", (req, res) => {
   let ready =  `<div class="" align="center">
