@@ -196,6 +196,7 @@ class News {
       const newsAuthor = body.news_author;
       const newsThumbnail = req.file.path;
       const newsImage = body.news_image;
+      const newsVideo = body.news_video;
       const newDesc = body.news_description;
       const newsSource = body.news_source;
 
@@ -206,6 +207,7 @@ class News {
         news_author: newsAuthor,
         news_thumbnail: newsThumbnail,
         news_image: newsImage,
+        news_video: newsVideo,
         news_description: newDesc,
         news_source: newsSource,
       });

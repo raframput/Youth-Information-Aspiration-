@@ -31,6 +31,10 @@ const NewsSchema = new Schema({
     type: String,
     required: false,
   },
+  news_video: {
+    type: String,
+    required: false,
+  },
   news_source: {
     type: String,
     required: false,
