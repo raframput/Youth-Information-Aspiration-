@@ -25,7 +25,6 @@ class News {
       const NewsList = await NewsModel.find().populate([
         "user_id",
         "category_id",
-        "comment_id",
       ]);
       res.status(200).send({
         meta: {
@@ -60,7 +59,6 @@ class News {
       }).populate([
         "user_id",
         "category_id",
-        "comment_id",
       ]);
       res.status(200).send({
         meta: {
@@ -128,7 +126,6 @@ class News {
       const newsThumbnail = body.news_thumbnail;
       const newsImage = body.news_image;
       const newDesc = body.news_description;
-      const newsCommentID = body.comment_id;
       const newsSource = body.news_source;
 
       const News = new NewsModel({
@@ -138,7 +135,6 @@ class News {
         news_author: newsAuthor,
         news_thumbnail: newsThumbnail,
         news_image: newsImage,
-        comment_id: newsCommentID,
         news_description: newDesc,
         news_source: newsSource,
       });

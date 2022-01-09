@@ -14,12 +14,6 @@ const NewsSchema = new Schema({
       ref: "categories",
     },
   ],
-  comment_id: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "comments",
-    },
-  ],
   news_title: {
     type: String,
     required: false,
