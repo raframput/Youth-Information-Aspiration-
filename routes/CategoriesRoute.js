@@ -1,19 +1,21 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+const express = require("express")
 
-const CategorySchema = new Schema({
-  category_name: {
-    type: String,
-    required: true,
-  },
-  created_at: {
-    type: Date,
-    default: Date.now,
-  },
-  updated_at: {
-    type: Date,
-    default: Date.now,
-  },
-});
+const authorize = require("../middleware/auth");
+const CategoriesController = require('../controllers/CategoriesController');
 
-module.exports = mongoose.model('categories', CategorySchema);
+// creates a new router instance.
+const router = express.Router()
+
+// API User Group Endpoints
+router
+  .route('/')
+  .get(authorize, CategoriesController.listAllCategory)
+  .post(authorize, CategoriesController.createNewCategory);
+
+router
+  .route('/:id')
+  .get(authorize, CategoriesController.readCategory)
+  .put(authorize, CategoriesController.updateCategory)
+  .delete(authorize, CategoriesController.deleteCategory);
+
+module.exports = router
