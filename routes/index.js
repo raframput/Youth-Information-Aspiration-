@@ -1,3 +1,4 @@
+'use strict';
 const express = require("express");
 const bodyParser = require('body-parser')
 const http = require("http");
@@ -59,7 +60,6 @@ router.get("/", (req, res) => {
             // Pass to next layer of middleware
             next();
         });
-
 
 router.use("/users", userRoutes)
 router.use("/user-groups", usergroupRoutes)

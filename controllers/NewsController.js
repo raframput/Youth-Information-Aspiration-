@@ -87,10 +87,13 @@ class News {
   //   Get News By Category Name
   static async getNewsByCategory(req, res) {
     try {
-      const categoryName = req.params.category_name;
-      const NewsList = await NewsModel.find({
-        category_name: categoryName,
-      });
+      const category_name = req.params.category_name;
+      const NewsList = await NewsModel.findOne({
+        category_name: category_name,
+      }).populate([
+        "user_id",
+        "category_id",
+      ]);
       res.status(200).send({
         meta: {
           status: "Success",
@@ -115,6 +118,38 @@ class News {
     }
   }
 
+
+//   Get News By Title Name
+  static async getNewsByTitle(req, res) {
+    try {
+      const titleName = req.params.news_title;
+      const NewsList = await NewsModel.findOne({
+        news_title: titleName,
+      });
+      res.status(200).send({
+        meta: {
+          status: "Success",
+          message: "Get News by Title",
+          time: Timestamp,
+        },
+          data: {
+            News : NewsList
+          }
+      });
+    } catch (error) {
+      res.status(500).send({
+        meta: {
+          status: "Error",
+          message: "Get News by Title",
+          time: Timestamp,
+        },
+          data: {
+            News : error
+          }
+      });
+    }
+  }
+
   // Create new News
   static async createNews(req, res) {
     try {
@@ -123,7 +158,7 @@ class News {
       const newsCategoryID = body.category_id;
       const newsTitle = body.news_title;
       const newsAuthor = body.news_author;
-      const newsThumbnail = body.news_thumbnail;
+      const newsThumbnail = req.file.path;
       const newsImage = body.news_image;
       const newDesc = body.news_description;
       const newsSource = body.news_source;

@@ -22,7 +22,14 @@ let Timestamp = year + "-" + month + "-" + date + " " + hours + ":" + minutes + 
 class Aspirations {
   static async createNewAspiration(req, res) {
     try {
-      AspirationsModel.create(req.body).then(function (dbAspiration) {
+      AspirationsModel.create({
+        user_id: req.body.user_id,
+        category_id: req.body.category_id,
+        aspiration_title: req.body.aspiration_title, 
+        aspiration_image: req.file.path,
+        aspiration_source: req.body.aspiration_source,
+        aspiration_description: req.body.aspiration_description,
+    }).then(function (dbAspiration) {
         res.json({
         meta: {
           status: "Success",

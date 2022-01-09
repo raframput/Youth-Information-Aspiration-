@@ -5,6 +5,8 @@ const express = require("express")
 
 const routes = require("./routes")
 const openDBConnection = require("./helpers/db")
+const http = require("http");
+const path = require("path");
 
 const port = process.env.PORT || 3000
 const uri = process.env.MONGO_URI || "mongodb+srv://assassincode:assassincode170845@cluster0.abmvz.mongodb.net/db_yia?retryWrites=true&w=majority"
@@ -25,6 +27,8 @@ async function main() {
 
         // parsing requests data menjadi content-type - application/x-www-form-urlencoded
         app.use(express.urlencoded({ extended: true }));
+
+        app.use('/public/images', express.static(path.join(__dirname, 'public/images')));
 
         app.use(routes)
 
