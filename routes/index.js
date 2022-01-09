@@ -13,6 +13,8 @@ const usergroupRoutes = require("./UserGroupsRoute");
 const categoriesRoutes = require("./CategoriesRoute");
 const aspirationRoutes = require("./AspirationsRoute");
 const discussionRoutes = require("./DiscussionsRoute");
+const newsRoutes = require("./NewsRoute");
+const commentRoutes = require("./CommentsRoute");
 
 router.use(bodyParser.urlencoded({ extended: true }));
 router.use(bodyParser.json());
@@ -63,6 +65,9 @@ router.use("/users", userRoutes)
 router.use("/user-groups", usergroupRoutes)
 
 router.use("/categories", categoriesRoutes)
+
+router.use("/news", newsRoutes)
+router.use("/comments", commentRoutes)
 
 router.use("/aspirations", aspirationRoutes)
 router.use("/discussions", discussionRoutes)
