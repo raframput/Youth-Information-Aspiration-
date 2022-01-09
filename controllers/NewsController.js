@@ -1,4 +1,5 @@
 const NewsModel = require("../models/NewsModel");
+const Configuration = require('../models/ConfigurationsModel');
 
 let date_ob = new Date();
 
@@ -125,7 +126,10 @@ class News {
       const titleName = req.params.news_title;
       const NewsList = await NewsModel.findOne({
         news_title: titleName,
-      });
+      }).populate([
+        "user_id",
+        "category_id",
+      ]);
       res.status(200).send({
         meta: {
           status: "Success",
@@ -141,6 +145,38 @@ class News {
         meta: {
           status: "Error",
           message: "Get News by Title",
+          time: Timestamp,
+        },
+          data: {
+            News : error
+          }
+      });
+    }
+  }
+
+  //   Get News Limit
+  static async getNewsLimit(req, res) {
+    try {
+      const limit = req.params.limit;
+      const NewsList = await NewsModel.find().limit(limit).populate([
+        "user_id",
+        "category_id",
+      ]);
+      res.status(200).send({
+        meta: {
+          status: "Success",
+          message: "Get News Limit",
+          time: Timestamp,
+        },
+          data: {
+            News : NewsList
+          }
+      });
+    } catch (error) {
+      res.status(500).send({
+        meta: {
+          status: "Error",
+          message: "Get News by Limit",
           time: Timestamp,
         },
           data: {

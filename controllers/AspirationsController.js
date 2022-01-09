@@ -154,6 +154,106 @@ class Aspirations {
     }
   }
 
+  static async getAspirationByCategory(req, res) {
+    try {
+      AspirationsModel.findOne({ category_name: req.params.category_name })
+        .populate([
+          "user_id",
+          "category_id",
+        ])
+        .then(function (dbAspiration) {
+          res.json({
+        meta: {
+          status: "Success",
+          message: "Get Aspiration by Category",
+          time: Timestamp,
+        },
+          data: {
+            Aspiration : dbAspiration
+          }
+      });
+        });
+    } catch (error) {
+      res.json({
+        meta: {
+          status: "Error",
+          message: "Get Aspiration by Category",
+          time: Timestamp,
+        },
+          data: {
+            Aspiration : error
+          }
+      });
+    }
+  }
+
+  static async getAspirationByTitle(req, res) {
+    try {
+      AspirationsModel.findOne({ aspiration_title: req.params.aspiration_title })
+        .populate([
+          "user_id",
+          "category_id",
+        ])
+        .then(function (dbAspiration) {
+          res.json({
+        meta: {
+          status: "Success",
+          message: "Get Aspiration by Category",
+          time: Timestamp,
+        },
+          data: {
+            Aspiration : dbAspiration
+          }
+      });
+        });
+    } catch (error) {
+      res.json({
+        meta: {
+          status: "Error",
+          message: "Get Aspiration by Category",
+          time: Timestamp,
+        },
+          data: {
+            Aspiration : error
+          }
+      });
+    }
+  }
+
+  static async getAspirationLimit(req, res) {
+    try {
+      const limit = req.params.limit;
+      AspirationsModel.find().limit(limit)
+        .populate([
+          "user_id",
+          "category_id",
+        ])
+        .then(function (dbAspiration) {
+          res.json({
+        meta: {
+          status: "Success",
+          message: "Get Aspiration by Category",
+          time: Timestamp,
+        },
+          data: {
+            Aspiration : dbAspiration
+          }
+      });
+        });
+    } catch (error) {
+      res.json({
+        meta: {
+          status: "Error",
+          message: "Get Aspiration by Category",
+          time: Timestamp,
+        },
+          data: {
+            Aspiration : error
+          }
+      });
+    }
+  }
+
   static async deleteAspiration(req, res) {
     try {
       // Ambil ID dari parameter

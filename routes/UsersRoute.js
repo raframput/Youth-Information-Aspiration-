@@ -17,7 +17,6 @@ router
 router
   .route('/')
   .get(authorize, Users.listAllUsers)
-  
 
 router
   .route('/:userid')

@@ -35,6 +35,10 @@ const NewsSchema = new Schema({
     type: String,
     required: false,
   },
+  news_hit: {
+    type: Number,
+    required: false,
+  },
   status_news: {
     type: Number,
     default: 0,

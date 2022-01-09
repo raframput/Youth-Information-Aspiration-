@@ -30,6 +30,10 @@ const AspirationSchema = new Schema({
     type: String,
     required: true,
   },
+  aspiration_hit: {
+    type: Number,
+    required: false,
+  },
   created_at: {
     type: Date,
     default: Date.now,

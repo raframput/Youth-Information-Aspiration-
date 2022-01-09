@@ -11,6 +11,9 @@ router.post("/", upload.single("aspiration_image"), AspirationsController.create
 router.get("/", AspirationsController.getAllAspiration);
 router.post("/:id", authorize, AspirationsController.createNewAspirationByUserId);
 router.get("/:id", AspirationsController.getAspirationByUserID);
+router.get("/category/:category_name", AspirationsController.getAspirationByCategory);
+router.get("/title/:aspiration_title", AspirationsController.getAspirationByTitle);
+router.get("/limit/:limit", AspirationsController.getAspirationLimit);
 // router.put("/:id", authorize, AspirationsController.updateAspiration);
 router.delete("/:id", authorize, AspirationsController.deleteAspiration);
 
