@@ -146,7 +146,7 @@ class Aspirations {
               time: Timestamp,
             },
             data: {
-              Aspiration: aspirationList,
+              Aspiration: dbAspiration,
             },
           });
         });
