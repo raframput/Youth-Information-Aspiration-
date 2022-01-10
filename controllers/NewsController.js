@@ -199,6 +199,8 @@ class News {
       const newsVideo = body.news_video;
       const newDesc = body.news_description;
       const newsSource = body.news_source;
+      const newsHit = body.news_hit;
+      const newsStatus = body.news_status;
 
       const News = new NewsModel({
         user_id: newsUserid,
@@ -210,6 +212,8 @@ class News {
         news_video: newsVideo,
         news_description: newDesc,
         news_source: newsSource,
+        news_hit: newsHit,
+        news_status: newsStatus,
       });
       const saved = await News.save();
       res.status(201).send({

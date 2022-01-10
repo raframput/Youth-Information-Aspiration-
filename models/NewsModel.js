@@ -43,7 +43,7 @@ const NewsSchema = new Schema({
     type: Number,
     required: false,
   },
-  status_news: {
+  news_status: {
     type: Number,
     default: 0,
   },
