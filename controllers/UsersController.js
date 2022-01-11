@@ -101,7 +101,6 @@ class UserAPI {
         email: req.body.email,
         password: bcrypt.hashSync(req.body.password, 8),
         user_group: req.body.user_group,  
-        image: req.file.path,
         country: req.body.country,
         organization: req.body.organization,
     });

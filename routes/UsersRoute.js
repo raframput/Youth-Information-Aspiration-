@@ -12,7 +12,7 @@ router.post('/login', Users.loginUser);
 
 router
   .route('/register')
-  .post(upload.single("image"), Users.createNewUser);
+  .post(Users.createNewUser);
 
 router
   .route('/')
