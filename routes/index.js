@@ -96,12 +96,14 @@ io.on("connection", (socket) => {
   socket.on("joinRoom", ({ aspirationId }) => {
     socket.join(aspirationId);
     aspirationUserOnline++;
+    io.emit("User Online", aspirationUserOnline);
     console.log("A user joined aspirationRoom: " + aspirationId);
   });
 
   socket.on("leaveRoom", ({ aspirationId }) => {
     socket.leave(aspirationId);
     aspirationUserOnline--;
+    io.emit("User Online", aspirationUserOnline);
     console.log("A user left aspirationRoom: " + aspirationId);
   });
 
