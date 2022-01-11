@@ -1,5 +1,6 @@
 'use strict';
 const express = require("express");
+const socketIo = require("socket.io");
 const favicon = require('express-favicon');
 
 const bodyParser = require('body-parser')
@@ -10,6 +11,7 @@ const cors = require("cors");
 
 // creates a new router instance.
 const router = express.Router();
+const server = http.createServer(router)
 
 const userRoutes = require("./UsersRoute");
 const usergroupRoutes = require("./UserGroupsRoute");
@@ -66,6 +68,36 @@ router.get("/", (req, res) => {
             next();
         });
 
+
+const io = socketIo(server,{ 
+    cors: {
+      origin: "https://youth-information-aspiration.herokuapp.com/"
+    }
+}) //in case server and client run on different urls
+
+let countUserOnline = 1;
+io.on("connection",(socket)=>{
+  // console.log("client connected: ",socket.id)
+  
+  socket.join("clock-room")
+
+  socket.on("join", (param) => {
+    console.log("User Join");
+    countUserOnline++;
+    io.emit("User Online", countUserOnline);
+  })
+
+  socket.on("discussions", (param) => {
+    console.log("Start Discussions")
+  })
+  
+  socket.on("disconnect", (param) => {
+    console.log("User Left")
+    countUserOnline--;
+    io.emit("User Online", countUserOnline);
+  })
+})
+
 router.use("/users", userRoutes)
 router.use("/user-groups", usergroupRoutes)
 
@@ -77,5 +109,9 @@ router.use("/comments", commentRoutes)
 
 router.use("/aspirations", aspirationRoutes)
 router.use("/discussions", discussionRoutes)
+
+setInterval(()=>{
+     io.to("clock-room").emit("time", new Date())
+},1000)
 
 module.exports = router;
