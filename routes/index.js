@@ -82,6 +82,18 @@ const io = require("socket.io")(server, {
   }
 });
 
+router.use("/users", userRoutes)
+router.use("/user-groups", usergroupRoutes)
+
+router.use("/categories", categoriesRoutes)
+router.use("/configuration", configurationRoutes)
+
+router.use("/news", newsRoutes)
+router.use("/comments", commentRoutes)
+
+router.use("/aspirations", aspirationRoutes)
+router.use("/discussions", discussionRoutes)
+
 let aspirationUserOnline = 1;
 
 // Aspiration
@@ -124,22 +136,6 @@ io.on("connection", (socket) => {
   });
 });
 
-// 
-
-router.use("/users", userRoutes)
-router.use("/user-groups", usergroupRoutes)
-
-router.use("/categories", categoriesRoutes)
-router.use("/configuration", configurationRoutes)
-
-router.use("/news", newsRoutes)
-router.use("/comments", commentRoutes)
-
-router.use("/aspirations", aspirationRoutes)
-router.use("/discussions", discussionRoutes)
-
-setInterval(()=>{
-     io.to("clock-room").emit("time", new Date())
-},1000)
+//
 
 module.exports = router;
