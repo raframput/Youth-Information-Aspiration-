@@ -18,8 +18,6 @@ let seconds = date_ob.getSeconds();
 
 let Timestamp = year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds;
 
-
-module.exports = {Timestamp}
 class News {
   // Get All News Data
   static async getlistAllNews(req, res) {

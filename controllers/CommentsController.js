@@ -17,8 +17,6 @@ let seconds = date_ob.getSeconds();
 
 let Timestamp = year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds;
 
-
-module.exports = {Timestamp}
 class Comment {
   // Get All Comment
   static async getlistAllComment(req, res) {

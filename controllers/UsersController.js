@@ -21,8 +21,6 @@ let seconds = date_ob.getSeconds();
 
 let Timestamp = year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds;
 
-
-module.exports = {Timestamp}
 class UserAPI {
 
   // Login
