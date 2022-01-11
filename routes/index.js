@@ -1,7 +1,8 @@
 'use strict';
 const express = require("express");
-const socketIo = require("socket.io");
 const favicon = require('express-favicon');
+
+const methods = 'GET, POST, OPTIONS, PUT, PATCH, DELETE';
 
 const bodyParser = require('body-parser')
 const http = require("http");
@@ -12,6 +13,11 @@ const cors = require("cors");
 // creates a new router instance.
 const router = express.Router();
 const server = http.createServer(router)
+
+const User = require('../models/UsersModel');
+const Discussion = require("../models/DiscussionsModel");
+const CommentsModel = require("../models/CommentsModel");
+const {Timestamp} = require('../helpers/timestamphelper');
 
 const userRoutes = require("./UsersRoute");
 const usergroupRoutes = require("./UserGroupsRoute");
@@ -40,8 +46,6 @@ router.get("/", (req, res) => {
     <img src="/image.png">
   </div>
     `
-  
-
   res.status(200).send(ready);
 });
 
@@ -55,7 +59,7 @@ router.get("/", (req, res) => {
             res.setHeader('Access-Control-Allow-Origin', '*');
 
             // Request methods you wish to allow
-            res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+            res.setHeader('Access-Control-Allow-Methods', methods);
 
             // Request headers you wish to allow
             res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
@@ -69,34 +73,58 @@ router.get("/", (req, res) => {
         });
 
 
-const io = socketIo(server,{ 
-    cors: {
-      origin: "https://youth-information-aspiration.herokuapp.com/"
+const io = require("socket.io")(server, {
+  allowEIO3: true,
+  cors: {
+    origin: true,
+    methods: [methods],
+    credentials: true
+  }
+});
+
+let aspirationUserOnline = 1;
+
+// Aspiration
+io.on("connection", (socket) => {
+  console.log("Connected: " + socket.userId);
+
+  socket.on("disconnect", () => {
+    console.log("Disconnected: " + socket.userId);
+  });
+
+  socket.on("joinRoom", ({ aspirationId }) => {
+    socket.join(aspirationId);
+    aspirationUserOnline++;
+    io.emit("User Online", aspirationUserOnline);
+    console.log("A user joined aspirationRoom: " + aspirationId);
+  });
+
+  socket.on("leaveRoom", ({ aspirationId }) => {
+    socket.leave(aspirationId);
+    aspirationUserOnline--;
+    io.emit("User Online", aspirationUserOnline);
+    console.log("A user left aspirationRoom: " + aspirationId);
+  });
+
+  socket.on("aspirationRoomMessage", async ({ aspirationId, discussion_description }) => {
+    if (discussion_description.trim().length > 0) {
+      const user = await User.findOne({ _id: socket.userId });
+      const newDiscussion = new Discussion({
+        aspiration_id: aspirationId,
+        user_id: socket.userId,
+        discussion_description,
+      });
+      io.to(aspirationId).emit("newDiscussion", {
+        discussion_description,
+        name: user.name,
+        userId: socket.userId,
+      });
+      await newDiscussion.save();
     }
-}) //in case server and client run on different urls
+  });
+});
 
-let countUserOnline = 1;
-io.on("connection",(socket)=>{
-  // console.log("client connected: ",socket.id)
-  
-  socket.join("clock-room")
-
-  socket.on("join", (param) => {
-    console.log("User Join");
-    countUserOnline++;
-    io.emit("User Online", countUserOnline);
-  })
-
-  socket.on("discussions", (param) => {
-    console.log("Start Discussions")
-  })
-  
-  socket.on("disconnect", (param) => {
-    console.log("User Left")
-    countUserOnline--;
-    io.emit("User Online", countUserOnline);
-  })
-})
+// 
 
 router.use("/users", userRoutes)
 router.use("/user-groups", usergroupRoutes)
