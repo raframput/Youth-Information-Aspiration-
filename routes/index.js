@@ -13,7 +13,7 @@ const server = http.createServer(router);
 
 const User = require('../models/UsersModel');
 const Discussion = require("../models/DiscussionsModel");
-const CommentsModel = require("../models/CommentsModel");
+const Comment = require("../models/CommentsModel");
 
 const userRoutes = require("./UsersRoute");
 const usergroupRoutes = require("./UserGroupsRoute");
@@ -84,7 +84,7 @@ router.use("/aspirations", aspirationRoutes)
 router.use("/discussions", discussionRoutes)
 
 let aspirationUserOnline = 1;
-
+let newsUserOnline = 1;
 // Aspiration
 io.on("connection", (socket) => {
   console.log("Connected: " + socket.userId);
@@ -93,6 +93,7 @@ io.on("connection", (socket) => {
     console.log("Disconnected: " + socket.userId);
   });
 
+  // Aspiration
   socket.on("joinRoom", ({ aspirationId }) => {
     socket.join(aspirationId);
     aspirationUserOnline++;
@@ -123,6 +124,40 @@ io.on("connection", (socket) => {
       await newDiscussion.save();
     }
   });
+
+  // News
+  // News
+  socket.on("joinRoomNews", ({ newsId }) => {
+    socket.join(newsId);
+    newsUserOnline++;
+    io.emit("User Online", newsUserOnline);
+    console.log("A user joined newsRoom: " + newsId);
+  });
+
+  socket.on("leaveRoomNews", ({ newsId }) => {
+    socket.leave(newsId);
+    newsUserOnline--;
+    io.emit("User Online", newsUserOnline);
+    console.log("A user left newsRoom: " + newsId);
+  });
+
+  socket.on("newsRoomMessage", async ({ newsId, comment_description }) => {
+    if (comment_description.trim().length > 0) {
+      const user = await User.findOne({ _id: socket.userId });
+      const newComments = new Comments({
+        news_id: newsId,
+        user_id: socket.userId,
+        comment_description,
+      });
+      io.to(newsId).emit("newComments", {
+        comment_description,
+        name: user.name,
+        userId: socket.userId,
+      });
+      await newComments.save();
+    }
+  });
+  
 });
 //
 
