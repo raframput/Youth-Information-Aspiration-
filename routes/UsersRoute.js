@@ -21,7 +21,7 @@ router
 router
   .route('/:userid')
   .get(authorize, Users.readUser)
-  .put(authorize, Users.updateUser)
+  .put(authorize, upload.single("image"), Users.updateUser)
   .delete(authorize, Users.deleteUser);
 
 module.exports = router

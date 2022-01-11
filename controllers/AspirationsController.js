@@ -54,6 +54,43 @@ class Aspirations {
     }
   }
 
+  static async updateAspiration(req, res) {
+    try {
+      // Ambil ID dari parameter
+      const id = req.params.id;
+      await AspirationsModel.findOneAndUpdate({ _id: id },
+        {
+        user_id: req.body.user_id,
+        category_id: req.body.category_id,
+        aspiration_title: req.body.aspiration_title, 
+        aspiration_image: req.file.path,
+        aspiration_source: req.body.aspiration_source,
+        aspiration_description: req.body.aspiration_description,
+    },{ new: true });
+      res.status(200).send({
+            meta: {
+              status: "Success",
+              message: "Update Aspiration",
+              time: Timestamp,
+            },
+              data: {
+                Aspiration : `${id} has been Updated`
+              }
+          });
+    } catch (error) {
+      res.status(500).send({
+            meta: {
+              status: "Error",
+              message: "Update Aspiration",
+              time: Timestamp,
+            },
+              data: {
+                Aspiration : error
+              }
+          });
+    }
+  }
+
   static async createNewAspirationByUserId(req, res) {
     try {
       UsersModel.create(req.body)
@@ -261,7 +298,7 @@ class Aspirations {
       res.status(200).send({
             meta: {
               status: "Success",
-              message: "Update Aspiration",
+              message: "Delete Aspiration",
               time: Timestamp,
             },
               data: {
@@ -272,7 +309,7 @@ class Aspirations {
       res.status(500).send({
             meta: {
               status: "Error",
-              message: "Update Aspiration",
+              message: "Delete Aspiration",
               time: Timestamp,
             },
               data: {

@@ -165,7 +165,16 @@ class UserAPI {
   static async updateUser(req, res) {
     await User.findOneAndUpdate(
       { _id: req.params.userid },
-      req.body,
+      {
+        fullname: req.body.fullname,
+        username: req.body.username,
+        email: req.body.email,
+        password: req.body.password,
+        user_group: req.body.user_group,  
+        image: req.file.path,
+        country: req.body.country,
+        organization: req.body.organization,
+    },
       { new: true },
       (err, User) => {
         if (err) {
