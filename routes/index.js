@@ -31,8 +31,6 @@ router.get("/image.png", (req, res) => {
   res.sendFile(path.join(__dirname, "../assets/logo/assassinscode.png"));
 });
 
-router.use(favicon(__dirname + '../assets/logo/assassinscode.png'));
-
 router.get("/", (req, res) => {
   let ready =  `<div class="" align="center">
   <h1>Welcome to Our Final Development Project</h1>
@@ -71,11 +69,6 @@ router.get("/", (req, res) => {
 
 const io = require("socket.io")(server, {
   allowEIO3: true,
-  cors: {
-    origin: true,
-    methods: ['GET, POST, OPTIONS, PUT, PATCH, DELETE'],
-    credentials: true
-  }
 });
 
 router.use("/users", userRoutes)
@@ -129,7 +122,6 @@ io.on("connection", (socket) => {
     }
   });
 });
-
 //
 
 module.exports = router;
