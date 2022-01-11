@@ -7,10 +7,10 @@ const DiscussionsController = require("../controllers/DiscussionsController");
 // creates a new router instance.
 const router = express.Router();
 
-router.post("/",authorize, catchErrors(DiscussionsController.createNewDiscussion));
-router.get("/", authorize, catchErrors(DiscussionsController.getAllDiscussion));
-router.get("/:id", authorize, catchErrors(DiscussionsController.getDiscussionByID));
-router.put("/:id", authorize, catchErrors(DiscussionsController.updateDiscussion));
-router.delete("/:id", authorize, catchErrors(DiscussionsController.deleteDiscussion));
+router.post("/",authorize, DiscussionsController.createNewDiscussion);
+router.get("/", authorize, DiscussionsController.getAllDiscussion);
+router.get("/:id", authorize, DiscussionsController.getDiscussionByID);
+router.put("/:id", authorize, DiscussionsController.updateDiscussion);
+router.delete("/:id", authorize, DiscussionsController.deleteDiscussion);
 
 module.exports = router;

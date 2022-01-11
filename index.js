@@ -11,11 +11,6 @@ const path = require("path");
 const port = process.env.PORT || 3000
 const uri = process.env.MONGO_URI || "mongodb+srv://assassincode:assassincode170845@cluster0.abmvz.mongodb.net/db_yia?retryWrites=true&w=majority"
 
-// const dbOptions = {
-//     user: process.env.MONGO_USER,
-//     pass: process.env.MONGO_PASS
-// }
-
 async function main() {
     try {
         // mastikan database connect, baru kita jalankan app.

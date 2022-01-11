@@ -1,8 +1,5 @@
-'use strict';
 const express = require("express");
 const favicon = require('express-favicon');
-
-const methods = 'GET, POST, OPTIONS, PUT, PATCH, DELETE';
 
 const bodyParser = require('body-parser')
 const http = require("http");
@@ -12,12 +9,11 @@ const cors = require("cors");
 
 // creates a new router instance.
 const router = express.Router();
-const server = http.createServer(router)
+const server = http.createServer(router);
 
 const User = require('../models/UsersModel');
 const Discussion = require("../models/DiscussionsModel");
 const CommentsModel = require("../models/CommentsModel");
-const {Timestamp} = require('../helpers/timestamphelper');
 
 const userRoutes = require("./UsersRoute");
 const usergroupRoutes = require("./UserGroupsRoute");
@@ -59,7 +55,7 @@ router.get("/", (req, res) => {
             res.setHeader('Access-Control-Allow-Origin', '*');
 
             // Request methods you wish to allow
-            res.setHeader('Access-Control-Allow-Methods', methods);
+            res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
 
             // Request headers you wish to allow
             res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
@@ -77,7 +73,7 @@ const io = require("socket.io")(server, {
   allowEIO3: true,
   cors: {
     origin: true,
-    methods: [methods],
+    methods: ['GET, POST, OPTIONS, PUT, PATCH, DELETE'],
     credentials: true
   }
 });
