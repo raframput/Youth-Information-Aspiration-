@@ -126,7 +126,6 @@ io.on("connection", (socket) => {
   });
 
   // News
-  // News
   socket.on("joinRoomNews", ({ newsId }) => {
     socket.join(newsId);
     newsUserOnline++;
@@ -157,7 +156,7 @@ io.on("connection", (socket) => {
       await newComments.save();
     }
   });
-  
+
 });
 //
 
