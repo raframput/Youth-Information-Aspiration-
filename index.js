@@ -19,7 +19,7 @@ const uri =
 
 async function main() {
   try {
-    // mastikan database connect, baru kita jalankan app.
+    // mastikan database connect, aru kita jalankan app.
     await openDBConnection(uri);
 
     const app = express();
