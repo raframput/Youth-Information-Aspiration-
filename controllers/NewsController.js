@@ -200,6 +200,8 @@ class News {
       const newsSource = body.news_source;
       const newsHit = body.news_hit;
       const newsStatus = body.news_status;
+      const newsPopular = body.news_popular;
+      const newsTrending = body.news_trending;
 
       const News = new NewsModel({
         user_id: newsUserid,
@@ -213,6 +215,8 @@ class News {
         news_source: newsSource,
         news_hit: newsHit,
         news_status: newsStatus,
+        news_popular: newsPopular,
+        news_trending: newsTrending,
       });
       const saved = await News.save();
       res.status(201).send({
@@ -255,6 +259,8 @@ class News {
       const newsSource = body.news_source;
       const newsHit = body.news_hit;
       const newsStatus = body.news_status;
+      const newsPopular = body.news_popular;
+      const newsTrending = body.news_trending;
 
       const updated = await NewsModel.findOneAndUpdate(
         { _id: id },
@@ -270,6 +276,8 @@ class News {
           news_source: newsSource,
           news_hit: newsHit,
           news_status: newsStatus,
+          news_popular: newsPopular,
+          news_trending: newsTrending,
         },
         { new: true },
       );
