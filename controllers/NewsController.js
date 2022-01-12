@@ -1,5 +1,6 @@
 const NewsModel = require("../models/NewsModel");
 const Configuration = require('../models/ConfigurationsModel');
+
 let date_ob = new Date();
 
 // current date
