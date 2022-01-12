@@ -7,7 +7,7 @@ const {upload} = require('../helpers/filehelper');
 // creates a new router instance.
 const router = express.Router();
 
-router.post("/", upload.single("aspiration_image"), AspirationsController.createNewAspiration);
+router.post("/", AspirationsController.createNewAspiration);
 router.get("/", AspirationsController.getAllAspiration);
 router.post("/:id", AspirationsController.createNewAspirationByUserId);
 router.get("/:id", AspirationsController.getAspirationByUserID);
