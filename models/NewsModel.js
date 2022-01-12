@@ -43,6 +43,14 @@ const NewsSchema = new Schema({
     type: Number,
     required: false,
   },
+  news_popular: {
+    type: Number,
+    required: false,
+  },
+  news_trending: {
+    type: Number,
+    required: false,
+  },
   news_status: {
     type: Number,
     default: 0,
