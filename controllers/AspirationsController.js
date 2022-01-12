@@ -21,11 +21,17 @@ let Timestamp = year + "-" + month + "-" + date + " " + hours + ":" + minutes + 
 class Aspirations {
   static async createNewAspiration(req, res) {
     try {
+      var image;
+      if (req.file.path != null) {
+        image = req.file.path;
+      }else{
+        image = "";
+      }
       AspirationsModel.create({
         user_id: req.body.user_id,
         category_id: req.body.category_id,
         aspiration_title: req.body.aspiration_title, 
-        aspiration_image: req.file.path,
+        aspiration_image: image,
         aspiration_source: req.body.aspiration_source,
         aspiration_description: req.body.aspiration_description,
     }).then(function (dbAspiration) {
