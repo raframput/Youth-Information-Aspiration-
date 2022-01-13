@@ -225,7 +225,7 @@ class Aspirations {
 
   static async getAspirationByTitle(req, res) {
     try {
-      AspirationsModel.findOne({ aspiration_title: req.params.aspiration_title })
+      AspirationsModel.find({ aspiration_title: req.params.aspiration_title })
         .populate([
           "user_id",
           "category_id",
