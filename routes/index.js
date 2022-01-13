@@ -138,36 +138,36 @@ io.on("connection", (socket) => {
   });
 
   // News
-  socket.on("joinRoomNews", ({ newsId }) => {
-    socket.join(newsId);
-    newsUserOnline++;
-    io.emit("User Online", newsUserOnline);
-    console.log("A user joined newsRoom: " + newsId);
-  });
+  // socket.on("joinRoomNews", ({ newsId }) => {
+  //   socket.join(newsId);
+  //   newsUserOnline++;
+  //   io.emit("User Online", newsUserOnline);
+  //   console.log("A user joined newsRoom: " + newsId);
+  // });
 
-  socket.on("leaveRoomNews", ({ newsId }) => {
-    socket.leave(newsId);
-    newsUserOnline--;
-    io.emit("User Online", newsUserOnline);
-    console.log("A user left newsRoom: " + newsId);
-  });
+  // socket.on("leaveRoomNews", ({ newsId }) => {
+  //   socket.leave(newsId);
+  //   newsUserOnline--;
+  //   io.emit("User Online", newsUserOnline);
+  //   console.log("A user left newsRoom: " + newsId);
+  // });
 
-  socket.on("newsRoomMessage", async ({ newsId, comment_description }) => {
-    if (comment_description.trim().length > 0) {
-      const user = await User.findOne({ _id: socket.userId });
-      const newComments = new Comments({
-        news_id: newsId,
-        user_id: socket.userId,
-        comment_description,
-      });
-      io.to(newsId).emit("newComments", {
-        comment_description,
-        name: user.name,
-        userId: socket.userId,
-      });
-      await newComments.save();
-    }
-  });
+  // socket.on("newsRoomMessage", async ({ newsId, comment_description }) => {
+  //   if (comment_description.trim().length > 0) {
+  //     const user = await User.findOne({ _id: socket.userId });
+  //     const newComments = new Comments({
+  //       news_id: newsId,
+  //       user_id: socket.userId,
+  //       comment_description,
+  //     });
+  //     io.to(newsId).emit("newComments", {
+  //       comment_description,
+  //       name: user.name,
+  //       userId: socket.userId,
+  //     });
+  //     await newComments.save();
+  //   }
+  // });
 
 });
 //
