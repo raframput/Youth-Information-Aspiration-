@@ -11,7 +11,7 @@ router.post("/", AspirationsController.createNewAspiration);
 router.get("/", AspirationsController.getAllAspiration);
 router.post("/:id", AspirationsController.createNewAspirationByUserId);
 router.get("/:id", AspirationsController.getAspirationByUserID);
-router.get("/category/:category_name", AspirationsController.getAspirationByCategory);
+router.get("/category/:category_id", AspirationsController.getAspirationByCategory);
 router.get("/title/:aspiration_title", AspirationsController.getAspirationByTitle);
 router.get("/limit/:limit", AspirationsController.getAspirationLimit);
 // router.put("/:id", authorize, AspirationsController.updateAspiration);
