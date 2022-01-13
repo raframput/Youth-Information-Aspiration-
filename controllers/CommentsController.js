@@ -53,7 +53,7 @@ class Comment {
   static async getCommentById(req, res) {
     try {
       const id = req.params.id;
-      const CommentList = await CommentsModel.findOne({
+      const CommentList = await CommentsModel.find({
         _id: id,
       });
       res.status(200).send({
@@ -84,7 +84,7 @@ class Comment {
   static async getCommentByNews(req, res) {
     try {
       const news_id = req.params.news_id;
-      const CommentList = await CommentsModel.findOne({
+      const CommentList = await CommentsModel.find({
         news_id: news_id,
       }).populate([
         "user_id",
