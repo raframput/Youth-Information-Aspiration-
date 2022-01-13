@@ -9,6 +9,7 @@ const router = express.Router();
 
 router.post("/", DiscussionsController.createNewDiscussion);
 router.get("/", DiscussionsController.getAllDiscussion);
+router.get("/aspirations/:aspiration_id", DiscussionsController.getDiscussionByAspiration);
 router.get("/:id", authorize, DiscussionsController.getDiscussionByID);
 router.put("/:id", authorize, DiscussionsController.updateDiscussion);
 router.delete("/:id", authorize, DiscussionsController.deleteDiscussion);

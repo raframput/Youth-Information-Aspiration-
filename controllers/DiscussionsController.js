@@ -47,6 +47,40 @@ class Discussions {
     }
   }
 
+  // TODO  Get Discussion By aspiration_id TODO
+  static async getDiscussionByAspiration(req, res) {
+    try {
+      const aspiration_id = req.params.aspiration_id;
+      const DiscussionModel = await DiscussionsModel.find({
+        aspiration_id: aspiration_id,
+      }).populate([
+        "user_id",
+        "aspiration_id",
+        ]);
+      res.status(200).send({
+        meta: {
+          status: "Success",
+          message: "Get Discussion by News",
+          time: Timestamp,
+        },
+          data: {
+            Discussion : DiscussionModel
+          }
+      });
+    } catch (error) {
+      res.status(500).send({
+        meta: {
+          status: "Error",
+          message: "Get Discussion by News",
+          time: Timestamp,
+        },
+          data: {
+            Discussion : error
+          }
+      });
+    }
+  }
+
   static async getAllDiscussion(req, res) {
     try {
       const discussionList = await DiscussionsModel.find().populate([
