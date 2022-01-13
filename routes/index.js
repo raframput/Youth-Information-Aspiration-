@@ -88,14 +88,14 @@ const jwt = require("jsonwebtoken");
 let aspirationUserOnline = 1;
 let newsUserOnline = 1;
 
-io.use(async (socket, next) => {
-  try {
-    const token = socket.handshake.query.token;
-    const payload = await jwt.verify(token, "longer-secret-is-better");
-    socket.userId = payload.id;
-    next();
-  } catch (err) {}
-});
+// io.use(async (socket, next) => {
+//   try {
+//     const token = socket.handshake.query.token;
+//     const payload = await jwt.verify(token, "longer-secret-is-better");
+//     socket.userId = payload.id;
+//     next();
+//   } catch (err) {}
+// });
 
 // Aspiration
 io.on("connection", (socket) => {
