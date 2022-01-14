@@ -50,7 +50,7 @@ class UserAPI {
         });
         res.status(200).json({
             token: jwtToken,
-            expiresIn: 3600,
+            // expiresIn: 3600,
             msg: getUser
         });
 
