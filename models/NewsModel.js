@@ -26,7 +26,6 @@ const NewsSchema = new Schema({
     type: String,
     required: false,
   },
-  news_image: [Object],
   news_description: {
     type: String,
     required: false,
