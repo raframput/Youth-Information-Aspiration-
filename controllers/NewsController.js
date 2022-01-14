@@ -88,9 +88,9 @@ class News {
   //   Get News By Category Name
   static async getNewsByCategory(req, res) {
     try {
-      const category_name = req.params.category_name;
-      const NewsList = await NewsModel.findOne({
-        category_name: category_name,
+      const category_id = req.params.category_id;
+      const NewsList = await NewsModel.find({
+        category_id: category_id,
       }).populate([
         "user_id",
         "category_id",
@@ -124,7 +124,7 @@ class News {
   static async getNewsByTitle(req, res) {
     try {
       const titleName = req.params.news_title;
-      const NewsList = await NewsModel.findOne({
+      const NewsList = await NewsModel.find({
         news_title: titleName,
       }).populate([
         "user_id",
