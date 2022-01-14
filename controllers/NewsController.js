@@ -255,7 +255,6 @@ class News {
       const newsVideo = body.news_video;
       const newDesc = body.news_description;
       const newsSource = body.news_source;
-      const newsHit = body.news_hit;
       const newsStatus = body.news_status;
       const newsPopular = body.news_popular;
       const newsTrending = body.news_trending;
@@ -271,7 +270,6 @@ class News {
           news_video: newsVideo,
           news_description: newDesc,
           news_source: newsSource,
-          news_hit: newsHit,
           news_status: newsStatus,
           news_popular: newsPopular,
           news_trending: newsTrending,

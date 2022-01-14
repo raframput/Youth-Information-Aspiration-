@@ -38,10 +38,6 @@ const NewsSchema = new Schema({
     type: String,
     required: false,
   },
-  news_hit: {
-    type: Number,
-    required: false,
-  },
   news_popular: {
     type: Number,
     required: false,
